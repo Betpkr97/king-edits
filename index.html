@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="KING EDITS — premium digital tools and subscriptions.">
+  <title>KING EDITS — Premium Digital Tools</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="top-glow"></div>
+
+  <header class="navbar">
+    <a class="brand" href="#home">
+      <img src="assets/king-edits-logo.png" alt="KING EDITS logo">
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+    <nav id="nav">
+      <a class="active" href="#home">⌂ Home</a>
+      <a href="#products">Products</a>
+      <a href="#about">About Us</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="Search">⌕</button>
+      <button class="cart-btn" id="cartBtn" aria-label="Cart">🛒 <span id="cartCount">0</span></button>
+      <button class="lang-btn">EN | اردو</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <p class="script">Welcome to</p>
+        <h1>KING <span>EDITS</span></h1>
+        <div class="tagline">ALL DIGITAL TOOLS AVAILABLE</div>
+        <div class="badges">
+          <span>⚡ Fast Delivery</span>
+          <span>🛡 Trusted & Secure</span>
+          <span>✓ Payment Confirmation</span>
+          <span>♛ Best Prices & Support</span>
+        </div>
+        <p class="hero-note">Premium digital tools • 25 Days Warranty + Replacement</p>
+        <div class="hero-buttons">
+          <a class="btn primary" href="#products">Shop Now →</a>
+          <a class="btn whatsapp" href="https://wa.me/923061358424" target="_blank" rel="noopener">WhatsApp Us</a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <img src="assets/design-reference.jpg" alt="KING EDITS design reference">
+      </div>
+    </section>
+
+    <section class="trust-bar">
+      <div><b>💳 Easypaisa</b><small>03013221259</small><small>Altaf Hussain</small></div>
+      <div><b>✓ Payment</b><small>Gateway-ready checkout</small></div>
+      <div><b>🛡 Warranty</b><small>25 Days + Replacement</small></div>
+      <div><b>📦 Delivery</b><small>WhatsApp / Digital Delivery</small></div>
+    </section>
+
+    <section class="section" id="products">
+      <div class="section-heading">
+        <p class="eyebrow">Premium Digital Tools</p>
+        <h2>♛ Our Products</h2>
+        <p>Choose a tool, place your order and contact support when needed.</p>
+      </div>
+      <div class="products-grid" id="productsGrid"></div>
+    </section>
+
+    <section class="all-tools">
+      <div class="crown">♛</div>
+      <div>
+        <h3>KING EDITS</h3>
+        <p>ALL TOOLS AVAILABLE</p>
+      </div>
+      <div class="mini-tools">
+        <span>CapCut Pro</span><span>Canva Pro</span><span>Gemini Pro</span><span>Veo 3</span>
+      </div>
+    </section>
+
+    <section class="info-grid" id="about">
+      <article class="info-card">
+        <h3>Why Choose <span>KING EDITS?</span></h3>
+        <ul>
+          <li>✔ Premium digital tools</li>
+          <li>✔ Fast WhatsApp support</li>
+          <li>✔ 25 Days Warranty + Replacement</li>
+          <li>✔ Clear pricing</li>
+          <li>✔ Easy mobile checkout</li>
+        </ul>
+      </article>
+      <article class="info-card">
+        <h3>Payment Method</h3>
+        <div class="payment-line">● <b>Easypaisa</b></div>
+        <strong class="payment-number">03013221259</strong>
+        <p>Account name: Altaf Hussain</p>
+        <p class="muted">Automatic gateway verification can be connected after an approved Easypaisa merchant/gateway setup. Until then, do not treat a manual transfer as automatically verified.</p>
+      </article>
+      <article class="info-card" id="contact">
+        <h3>Chat on WhatsApp</h3>
+        <strong class="wa-number">03061358424</strong>
+        <p>Need help with an order?</p>
+        <a class="btn whatsapp wide" href="https://wa.me/923061358424" target="_blank" rel="noopener">Click to Chat →</a>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-brand">
+      <img src="assets/king-edits-logo.png" alt="KING EDITS">
+      <span>— by Abrar Ali</span>
+    </div>
+    <div class="footer-links">
+      <a href="#home">Home</a><a href="#products">Products</a><a href="#about">About Us</a><a href="#contact">Contact</a>
+    </div>
+    <p>© 2026 KING EDITS — by Abrar Ali. All rights reserved.</p>
+  </footer>
+
+  <div class="modal" id="checkoutModal" aria-hidden="true">
+    <div class="modal-box">
+      <button class="close" id="closeModal">×</button>
+      <p class="eyebrow">Secure Checkout</p>
+      <h2 id="checkoutTitle">Order</h2>
+      <div class="checkout-summary" id="checkoutSummary"></div>
+      <form id="orderForm">
+        <label>Name<input id="customerName" required placeholder="Your name"></label>
+        <label>WhatsApp Number<input id="customerWhatsapp" required placeholder="03xxxxxxxxx"></label>
+        <label>Email (optional)<input id="customerEmail" type="email" placeholder="you@example.com"></label>
+        <label>Payment Method
+          <select id="paymentMethod">
+            <option value="easypaisa">Easypaisa</option>
+          </select>
+        </label>
+        <p class="payment-warning">Payment gateway status will be verified only after the official merchant/gateway integration is connected. This demo does not fake payment confirmation.</p>
+        <button class="btn primary wide" type="submit">Create Order →</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
