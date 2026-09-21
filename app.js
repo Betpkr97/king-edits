@@ -3,8 +3,8 @@ const products = [
   {id:"canva",name:"Canva Pro",price:400,tag:"Official Gmail",image:"assets/canva-logo.png",items:["Official Gmail account","1 Month validity","Full premium features"]},
   {id:"gemini",name:"Gemini Pro",price:1000,tag:"Google Official",image:"assets/gemini-logo.png",items:["Official account","1 Month validity","Latest AI features"]},
   {id:"veo3",name:"Veo 3",price:1700,tag:"Google Official",image:"assets/veo3-logo.png",items:["Official account","1 Month validity","AI video generation"]},
-  {id:"chatgpt",name:"ChatGPT Pro",price:1500,tag:"ChatGPT",image:"assets/chatgpt-logo.svg",items:["1 Month validity","Premium AI access","Account delivery via WhatsApp"]},
-  {id:"claude",name:"Claude Pro",price:1600,tag:"Claude",image:"assets/claude-logo.svg",items:["1 Month validity","Premium AI access","Account delivery via WhatsApp"]}
+  {id:"chatgpt",name:"ChatGPT Pro",price:1500,tag:"ChatGPT",image:"assets/chatgpt-logo.png",items:["1 Month validity","Premium AI access","Account delivery via WhatsApp"]},
+  {id:"claude",name:"Claude Pro",price:1600,tag:"Claude",image:"assets/claude-logo.png",items:["1 Month validity","Premium AI access","Account delivery via WhatsApp"]}
 ];
 
 const grid = document.getElementById("productsGrid");
