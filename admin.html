@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KING EDITS — Admin Panel</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#090812;color:#f6f4ff;font-family:Arial,sans-serif}.wrap{max-width:1200px;margin:auto;padding:20px}.card{background:#121020;border:1px solid #2b2840;border-radius:18px;padding:18px;margin-bottom:16px;box-shadow:0 10px 35px #0005}h1,h2{margin-top:0}.login{max-width:420px;margin:12vh auto}.input,select,button{width:100%;padding:13px;border-radius:11px;border:1px solid #403a5c;background:#0d0b17;color:#fff;font-size:15px}.input{margin:7px 0 12px}button{cursor:pointer;background:#f2c94c;color:#17120a;border:0;font-weight:800}.logout{width:auto;background:#29263a;color:#fff;float:right}.hidden{display:none}.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.stat strong{font-size:25px;display:block;margin-top:5px}.muted{color:#aaa6ba;font-size:13px}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:900px}th,td{text-align:left;padding:12px;border-bottom:1px solid #27243a;vertical-align:top}th{color:#aaa6ba;font-size:12px;text-transform:uppercase}.status{padding:5px 8px;border-radius:999px;background:#25223a;font-size:12px;display:inline-block}.actions{display:flex;gap:6px;flex-wrap:wrap}.actions button{width:auto;padding:8px 10px;font-size:12px}.view{background:#28243c;color:#fff}.msg{margin-top:10px;color:#f2c94c}.screen{max-width:130px;max-height:150px;border-radius:8px;border:1px solid #38334f;display:block;margin-top:7px}.top{display:flex;justify-content:space-between;align-items:center;gap:10px}.badge{color:#f2c94c}.empty{text-align:center;padding:30px;color:#aaa6ba}@media(max-width:700px){.wrap{padding:12px}.stats{grid-template-columns:repeat(2,1fr)}h1{font-size:22px}.top{align-items:flex-start}.logout{float:none;width:auto}}
+</style>
+</head>
+<body>
+<div id="login" class="wrap login card">
+  <h1>👑 KING EDITS</h1><p class="muted">Private Admin Panel</p>
+  <label>Username</label><input id="username" class="input" autocomplete="username">
+  <label>Password</label><input id="password" class="input" type="password" autocomplete="current-password">
+  <button id="loginBtn">Login</button><div id="loginMsg" class="msg"></div>
+</div>
+
+<div id="dashboard" class="wrap hidden">
+  <div class="top card"><div><h1>👑 Admin Dashboard</h1><div class="muted">KING EDITS — order management</div></div><button id="logout" class="logout">Logout</button></div>
+  <div class="stats">
+    <div class="card stat"><span class="muted">Total</span><strong id="total">0</strong></div>
+    <div class="card stat"><span class="muted">Pending</span><strong id="pending">0</strong></div>
+    <div class="card stat"><span class="muted">Paid</span><strong id="paid">0</strong></div>
+    <div class="card stat"><span class="muted">Delivered</span><strong id="delivered">0</strong></div>
+    <div class="card stat"><span class="muted">Sales</span><strong id="sales">Rs. 0</strong></div>
+  </div>
+  <div class="card"><div class="top"><h2>Orders</h2><button id="refresh" style="width:auto">↻ Refresh</button></div><div id="orders" class="table-wrap"></div></div>
+</div>
+<script>
+const $=id=>document.getElementById(id); const money=n=>'Rs. '+Number(n||0).toLocaleString('en-PK');
+async function api(url,opts={}){const r=await fetch(url,{...opts,headers:{'Content-Type':'application/json',...(opts.headers||{})}});let d={};try{d=await r.json()}catch{};if(!r.ok)throw new Error(d.message||'Request failed');return d}
+async function check(){const d=await api('/api/admin/me'); if(d.ok) showDash(); else showLogin();}
+function showLogin(){ $('login').classList.remove('hidden'); $('dashboard').classList.add('hidden'); }
+function showDash(){ $('login').classList.add('hidden'); $('dashboard').classList.remove('hidden'); loadOrders(); }
+$('loginBtn').onclick=async()=>{ $('loginMsg').textContent=''; try{await api('/api/admin/login',{method:'POST',body:JSON.stringify({username:$('username').value,password:$('password').value})});showDash()}catch(e){$('loginMsg').textContent=e.message}};
+$('password').addEventListener('keydown',e=>{if(e.key==='Enter')$('loginBtn').click()});
+$('logout').onclick=async()=>{await api('/api/admin/logout',{method:'POST'});showLogin()}; $('refresh').onclick=loadOrders;
+async function loadOrders(){try{const d=await api('/api/admin/orders');$('total').textContent=d.stats.total;$('pending').textContent=d.stats.pending;$('paid').textContent=d.stats.paid;$('delivered').textContent=d.stats.delivered;$('sales').textContent=money(d.stats.sales);render(d.orders)}catch(e){if(e.message.includes('login'))showLogin();}}
+function render(orders){if(!orders.length){$('orders').innerHTML='<div class="empty">No orders yet.</div>';return} $('orders').innerHTML=`<table><thead><tr><th>Order</th><th>Customer</th><th>Product</th><th>Payment</th><th>Status</th><th>Actions</th></tr></thead><tbody>${orders.map(o=>`<tr><td><b>${o.orderId}</b><div class="muted">${new Date(o.createdAt).toLocaleString()}</div></td><td>${esc(o.customerName)}<div class="muted">${esc(o.whatsapp)}${o.email?'<br>'+esc(o.email):''}</div></td><td>${esc(o.product)}<br><b>${money(o.price)}</b></td><td>Easypaisa<br><span class="muted">TX: ${esc(o.transactionId)}</span>${o.paymentScreenshot?`<img class="screen" src="/api/admin/orders/${encodeURIComponent(o.orderId)}/screenshot" alt="Payment screenshot">`:''}</td><td><span class="status">${o.status}</span></td><td><div class="actions"><button onclick="setStatus('${o.orderId}','PAID')">✓ Paid</button><button onclick="setStatus('${o.orderId}','DELIVERED')">✓ Delivered</button><button class="view" onclick="setStatus('${o.orderId}','REJECTED')">Reject</button><button class="view" onclick="setStatus('${o.orderId}','PENDING_PAYMENT_VERIFICATION')">Pending</button></div></td></tr>`).join('')}</tbody></table>`}
+window.setStatus=async(id,status)=>{try{await api('/api/admin/orders/'+encodeURIComponent(id),{method:'PATCH',body:JSON.stringify({status})});loadOrders()}catch(e){alert(e.message)}};
+function esc(s){return String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+check();
+</script>
+</body></html>
