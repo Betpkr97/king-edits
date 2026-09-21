@@ -74,7 +74,7 @@
         <p>ALL TOOLS AVAILABLE</p>
       </div>
       <div class="mini-tools">
-        <span>CapCut Pro</span><span>Canva Pro</span><span>Gemini Pro</span><span>Veo 3</span>
+        <span>CapCut Pro</span><span>Canva Pro</span><span>Gemini Pro</span><span>Veo 3</span><span>ChatGPT Pro</span><span>Claude Pro</span>
       </div>
     </section>
 
@@ -113,7 +113,7 @@
     <div class="footer-links">
       <a href="#home">Home</a><a href="#products">Products</a><a href="#about">About Us</a><a href="#contact">Contact</a>
     </div>
-    <p>© 2026 KING EDITS — by Abrar Ali. All rights reserved.</p>
+    <p>© 2026 KING EDITS — by Abrar Ali. All rights reserved.</p><p class="trademark-note">ChatGPT and Claude are trademarks of their respective owners. KING EDITS is not affiliated with or endorsed by OpenAI or Anthropic.</p>
   </footer>
 
   <div class="modal" id="checkoutModal" aria-hidden="true">
@@ -131,8 +131,16 @@
             <option value="easypaisa">Easypaisa</option>
           </select>
         </label>
-        <p class="payment-warning">Payment gateway status will be verified only after the official merchant/gateway integration is connected. This demo does not fake payment confirmation.</p>
-        <button class="btn primary wide" type="submit">Create Order →</button>
+        <div class="payment-box">
+          <strong>💳 Send payment first</strong>
+          <p>Easypaisa: <b>03013221259</b></p>
+          <p>Account Name: <b>Altaf Hussain</b></p>
+          <small>After sending the exact amount, enter your transaction ID below.</small>
+        </div>
+        <label>Payment Transaction ID<input id="transactionId" required placeholder="Enter Easypaisa transaction ID"></label>
+        <label>Payment Screenshot (optional)<input id="paymentScreenshot" type="file" accept="image/*" required><small class="field-help">Upload the Easypaisa payment screenshot for manual verification.</small></label>
+        <p class="payment-warning">Your order stays <b>Pending Payment Verification</b> until the payment is manually checked. Transaction ID + screenshot are saved with the order. This does not automatically verify payment.</p>
+        <button class="btn primary wide" type="submit">Submit Order →</button>
       </form>
     </div>
   </div>
